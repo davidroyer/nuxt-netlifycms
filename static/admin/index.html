@@ -15,21 +15,73 @@
   <script src="cms.js" type="module"></script>
   <script>
     var PostPreview = createClass({
-      render: function() {
+      render: function () {
         var entry = this.props.entry;
+        console.log("TCL: entry", entry)
         var image = entry.getIn(['data', 'image']);
         var bg = this.props.getAsset(image);
         return h('div', {},
           h('h1', {}, entry.getIn(['data', 'title'])),
           h('h2', {}, entry.getIn(['data', 'description'])),
-          h('img', {src: bg.toString()}),
-          h('div', {"className": "text"}, this.props.widgetFor('body'))
+          h('img', { src: bg.toString() }),
+          h('div', { "className": "markdown body" }, this.props.widgetFor('body'))
         );
       }
     });
 
     CMS.registerPreviewTemplate("blog", PostPreview);
-    </script>
+  </script>
+
+  <script>
+    const TeamsPreview = createClass({
+      // For list fields, the widgetFor function returns an array of objects
+      // that you can map over in your template. If our field is a list of
+      // authors containing two entries, with fields `name` and `description`,
+      // the return value of `widgetsFor` would look like this:
+      //
+      // [{
+      //   data: { name: 'Mathias', description: 'Co-Founder'},
+      //   widgets: { name: (<WidgetComponent>), description: (WidgetComponent>)}
+      // },
+      // {
+      //   data: { name: 'Chris', description: 'Co-Founder'},
+      //   widgets: { name: (<WidgetComponent>), description: (WidgetComponent>)}
+      // }]
+      //
+      // Templating would look something like this:
+
+      render() {
+        console.log('this', this);
+        var entry = this.props.entry;
+        console.log("TCL: render -> entry", entry)
+
+        return h(
+          'div',
+          {},
+
+          // This is a static header that would only be rendered once for the entire list
+          h('h1', {}, 'About Page'),
+          h('h2', {}, entry.getIn(['data', 'title'])),
+          // h('h3', {}, entry.getIn(['data', 'intro'])),
+          h('div', { "className": "markdown body" }, this.props.widgetFor('intro')),
+          // Here we provide a simple mapping function that will be applied to each
+          // object in the array of authors
+          this.props.widgetsFor('team').map(function (team, index) {
+            return h(
+              'section',
+              { key: index },
+              h('hr', {}),
+              h('h2', {}, team.getIn(['data', 'name'])),
+              team.getIn(['widgets', 'position'])
+            )
+          })
+        )
+      }
+    })
+
+    CMS.registerPreviewTemplate('about', TeamsPreview)
+
+  </script>
 </body>
 
 </html>
