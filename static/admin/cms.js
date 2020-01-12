@@ -32,13 +32,13 @@ const TeamsPreview = createClass({
 
       // Here we provide a simple mapping function that will be applied to each
       // object in the array of authors
-      this.props.widgetsFor('teams').map(function(team, index) {
+      this.props.widgetsFor('team').map(function(team, index) {
         return h(
-          'div',
+          'section',
           { key: index },
           h('hr', {}),
-          h('strong', {}, team.getIn(['data', 'name'])),
-          team.getIn(['widgets', 'description'])
+          h('h2', {}, team.getIn(['data', 'name'])),
+          team.getIn(['widgets', 'position'])
         )
       })
     )
