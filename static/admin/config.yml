@@ -22,14 +22,13 @@ collections:
 
   - label: "Pages"
     name: "pages"
-    create: true
-    editor:
-      preview: true
+    # create: true
+    # editor:
+    #   preview: true
     files:
       - label: "About Page"
         name: "about"
-        format: json
-        file: "site/content/about.yml"
+        file: "assets/content/about.yml"
         fields:
           - {label: Title, name: title, widget: string}
           - {label: Intro, name: intro, widget: markdown}
