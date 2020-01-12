@@ -4,3 +4,6 @@ team:
   - name: Team 1
     photo: /img/7EBE5DE6-CCBC-4F91-AC9C-62CE692264C9.jpeg
     position: Postition 1
+  - name: Team 2
+    photo: /img/7EBE5DE6-CCBC-4F91-AC9C-62CE692264C9.jpeg
+    position: Position 2
